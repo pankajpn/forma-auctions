@@ -1,0 +1,8 @@
+import { type FormEvent, useState } from 'react';
+import { catalog } from '../catalog';
+export function SiteHeader({ initialQuery, initialCategory }: { initialQuery: string; initialCategory: string }) {
+ const [query, setQuery] = useState(initialQuery);
+ const [category, setCategory] = useState(initialCategory);
+ function search(event: FormEvent<HTMLFormElement>) { event.preventDefault(); const params = new URLSearchParams(); if(query.trim()) params.set('q',query.trim()); if(category !== 'all') params.set('category',category); window.location.assign(`/${params.size?'?'+params:''}#auctions`); }
+ return <header className="site-header"><div className="container header-main"><a className="brand" href="/" aria-label="Auction House home"><span className="brand-mark" aria-hidden="true"><i/><i/><i/></span><span>Auction House</span></a><form className="search-form" role="search" onSubmit={search}><span className="search-icon" aria-hidden="true">⌕</span><input aria-label="Search auctions" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search GPUs, memory, chassis, CPUs…"/><select aria-label="Search category" value={category} onChange={e=>setCategory(e.target.value)}><option value="all">All equipment</option>{catalog.map(item=><option key={item.slug}>{item.category}</option>)}</select><button type="submit">Search</button></form><span className="demo-badge">Demo collection</span></div><nav className="container category-nav" aria-label="Equipment categories">{['Featured',...catalog.map(item=>item.category)].map(c=><a key={c} href={c==='Featured'?'/#auctions':`/?category=${encodeURIComponent(c)}#auctions`} aria-current={(initialCategory===c||(initialCategory==='all'&&c==='Featured'))?'page':undefined}>{c}</a>)}</nav></header>;
+}

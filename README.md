@@ -1,14 +1,19 @@
-# Forma auctions
+# Auction House
 
-React auction prototype with two route patterns: `/` and `/auction/:id`.
+React + TypeScript + Vite auction prototype, adapted from `reference/part-1-foundation/web`. Reuses the reference catalog, component structure, SVG hardware artwork, and marketplace styling. The reference directory is unchanged.
 
-## Run locally
+## Run
 
 ```sh
 npm install
-npm run dev
+npm start
 ```
 
-`npm run build` creates the production bundle in `dist`.
+Open http://127.0.0.1:5173 after the server starts. These commands also work from the parent `auctionhouse-throwaway` folder. `npm run dev` remains available. Requires Node.js 20.19+ or 22.12+.
 
-Six sample auctions, three persistent themes (Atelier, Modern, Noir), search, category filters, sorting, watchlists, and demo bidding. Theme, watchlist, and bids are saved in localStorage. Photography is illustrative and served by Unsplash; fonts are served by Google Fonts. Auction times are demonstration countdowns, reset when the app loads. No backend, accounts, checkout, or real bids.
+- `npm test`: catalog, search, sort, and theme validation tests.
+- `npm run build`: strict TypeScript checks and production build.
+- `/`: six auctions, search, category filters, sorting, and Classic / Midnight / Terminal theme selection.
+- `/items/:slug`: illustration, price, bid count, seller, condition, description, and specifications.
+
+Themes persist in localStorage. Bidding is a page-local demonstration with no backend or payment processing. Time-left values and seller information are sample data. Fonts use Google Fonts; hardware artwork is bundled SVG. Only two route patterns are used; searches and categories are homepage query parameters.
